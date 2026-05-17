@@ -1093,9 +1093,14 @@ textarea:focus {
   .order-workspace,
   .service-inner,
   .contact-inner,
-  .image-band-layout,
   .products-layout {
     grid-template-columns: 1fr;
+  }
+
+  .image-band-layout {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 40px;
   }
 
   .category-rows article {
@@ -1148,12 +1153,12 @@ textarea:focus {
   .hero-image img,
   .image-band-visual img,
   .products-visual img {
-    min-height: 320px;
+    height: 320px;
+    min-height: auto;
     border-radius: 32px;
   }
 
-  .hero-image,
-  .product-lead img {
+  .hero-image {
     border-radius: 32px;
   }
 
