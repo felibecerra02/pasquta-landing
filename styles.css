@@ -1188,6 +1188,15 @@ textarea:focus {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .proof-inner p {
+    border-left: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .proof-inner p:last-child {
+    border-right: none;
+  }
+
   .order-summary {
     position: static;
   }
@@ -1198,7 +1207,7 @@ textarea:focus {
   .nav,
   .footer,
   .hero-inner {
-    width: min(100% - 24px, 1180px);
+    width: min(100% - 48px, 1180px);
   }
 
   .brand {
@@ -1210,11 +1219,8 @@ textarea:focus {
 
   h1 {
     max-width: 100%;
-    font-size: clamp(2.2rem, 11vw, 3.2rem);
+    font-size: clamp(2rem, 9.5vw, 3.2rem);
     line-height: 1.05;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    hyphens: auto;
   }
 
   h2 {
@@ -1235,6 +1241,10 @@ textarea:focus {
 
   .proof-inner {
     grid-template-columns: 1fr;
+  }
+
+  .proof-inner p:last-child {
+    border-bottom: none;
   }
 
   .category-rows article,
