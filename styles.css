@@ -1274,8 +1274,8 @@ textarea:focus {
   }
 
   .whatsapp-widget {
-    right: 14px;
-    bottom: 14px;
+    right: 20px;
+    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
     width: 56px;
     height: 56px;
   }
