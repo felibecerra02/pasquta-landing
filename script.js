@@ -65,7 +65,23 @@ const orderNotes = document.getElementById("orderNotes");
 const filterButtons = document.querySelectorAll(".filter-button");
 const siteHeader = document.querySelector(".site-header");
 const orderSummary = document.querySelector(".order-summary");
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
+if (menuToggle && siteHeader) {
+  menuToggle.addEventListener("click", () => {
+    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+    menuToggle.setAttribute("aria-expanded", !isExpanded);
+    siteHeader.classList.toggle("menu-open");
+  });
+
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      siteHeader.classList.remove("menu-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+}
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {

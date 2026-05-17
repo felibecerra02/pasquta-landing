@@ -222,6 +222,10 @@ textarea {
   font-weight: 800;
 }
 
+.menu-toggle {
+  display: none;
+}
+
 .nav-links a {
   position: relative;
   border-bottom: 1px solid transparent;
@@ -1077,8 +1081,77 @@ textarea:focus {
 
 @media (max-width: 980px) {
   .nav {
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .menu-toggle {
+    display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    width: 32px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 50;
+  }
+
+  .menu-toggle .bar {
+    height: 3px;
+    width: 100%;
+    background-color: var(--blue-dark);
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(244, 240, 231, 0.98);
+    backdrop-filter: blur(12px);
+    flex-direction: column;
+    padding: 0 24px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 10px 20px rgba(13, 43, 62, 0.08);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-links a {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(13, 43, 62, 0.08);
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+
+  .site-header.menu-open .nav-links {
+    max-height: 400px;
+    padding: 10px 24px 20px;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .site-header.menu-open .menu-toggle .bar:nth-child(1) {
+    transform: translateY(10.5px) rotate(45deg);
+  }
+
+  .site-header.menu-open .menu-toggle .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .site-header.menu-open .menu-toggle .bar:nth-child(3) {
+    transform: translateY(-10.5px) rotate(-45deg);
   }
 
   .hero-section {
@@ -1135,15 +1208,13 @@ textarea:focus {
     gap: 8px 10px;
   }
 
-  .nav-links {
-    width: 100%;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
   h1 {
-    max-width: none;
-    font-size: clamp(2.8rem, 14vw, 4.25rem);
+    max-width: 100%;
+    font-size: clamp(2.2rem, 11vw, 3.2rem);
+    line-height: 1.05;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
   }
 
   h2 {
