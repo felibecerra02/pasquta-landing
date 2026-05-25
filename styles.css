@@ -616,7 +616,7 @@ a:focus-visible {
   color: #fff;
   background:
     linear-gradient(rgba(22, 71, 98, 0.92), rgba(22, 71, 98, 0.92)),
-    url("assets/producto-pizzas.jpg") center / cover;
+    url("assets/producto-pizzas.webp") center / cover;
 }
 
 .order-section h2,
