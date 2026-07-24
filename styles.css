@@ -79,6 +79,15 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -87,6 +96,30 @@ body {
   background: var(--paper);
   font-family: var(--font-text);
   line-height: 1.55;
+}
+
+/* Evita que hijos de flex/grid (imágenes, textos largos, marquee)
+   fuercen un ancho mayor al viewport y descuadren la vista mobile. */
+*,
+*::before,
+*::after {
+  min-width: 0;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+a,
+strong,
+span {
+  overflow-wrap: break-word;
 }
 
 .whatsapp-widget {
