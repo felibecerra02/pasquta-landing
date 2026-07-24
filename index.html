@@ -9,22 +9,19 @@
     content="Pasquta Congelados acompaña a negocios gastronómicos con productos congelados, entregas coordinadas y pedidos directos por WhatsApp.">
   <meta name="robots" content="noindex, nofollow">
   <!-- Favicons -->
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="icon" type="image/x-icon" href="assets/branding-pasquta/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/branding-pasquta/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/branding-pasquta/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/branding-pasquta/apple-touch-icon.png">
   <link rel="manifest" href="assets/site.webmanifest">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=Libre+Baskerville:ital@1&display=swap"
-    rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body id="inicio">
   <a class="whatsapp-widget"
-    href="https://wa.me/5493513187487?text=Hola%20Pasquta%2C%20quiero%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20productos%20congelados."
+    href="https://api.whatsapp.com/send?phone=5493513187487&text=Hola%20Pasquta%2C%20quiero%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20productos%20congelados."
+    data-whatsapp-link
+    data-whatsapp-message="Hola Pasquta, quiero recibir más información sobre sus productos congelados."
     target="_blank" rel="noreferrer" aria-label="Pedir más información por WhatsApp">
     <svg class="whatsapp-widget-icon" viewBox="0 0 32 32" aria-hidden="true">
       <path
@@ -35,9 +32,11 @@
   <header class="site-header">
     <nav class="nav" aria-label="Navegación principal">
       <a class="brand" href="#inicio" aria-label="Pasquta Congelados">
-        <img class="brand-logo" src="assets/pasquta-logo.webp" alt="" aria-hidden="true" width="48" height="48">
-        <span class="brand-script">Pasquta</span>
-        <span class="brand-line">Congelados</span>
+        <img class="brand-mark-header" src="assets/branding-pasquta/pasquta-logo.webp" alt="" aria-hidden="true" width="48" height="48">
+        <span class="brand-logo-header" aria-hidden="true">
+          <img class="brand-logo-header-img brand-logo-header-blue" src="assets/branding-pasquta/pasquta-logo-horizontal-blue.svg" alt="" width="348" height="28">
+          <img class="brand-logo-header-img brand-logo-header-orange" src="assets/branding-pasquta/pasquta-logo-horizontal-orange.svg" alt="" width="348" height="28">
+        </span>
       </a>
       
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
@@ -71,10 +70,6 @@
               rel="noreferrer">Ver Instagram</a>
           </div>
         </div>
-        <figure class="hero-image reveal delay-1">
-          <img src="assets/producto-postre.webp" alt="Producto congelado presentado por Pasquta" width="680" height="520" fetchpriority="high">
-          <figcaption>Productos listos para sumar a tu carta, con pedido directo y entrega coordinada.</figcaption>
-        </figure>
       </div>
     </section>
 
@@ -101,7 +96,7 @@
     <section class="image-band reveal">
       <div class="section-inner image-band-layout">
         <div class="image-band-visual reveal">
-          <img src="assets/entrega_pedido.webp"
+          <img src="assets/fotos-reales/entrega_pedido.webp"
             alt="Entrega de pedido de productos congelados a negocio gastronómico"
             width="600" height="420" loading="lazy">
         </div>
@@ -114,35 +109,57 @@
       </div>
     </section>
 
-    <section class="products-section reveal" id="productos">
-      <div class="section-inner">
-        <div class="products-layout">
-          <div class="products-content reveal">
-            <p class="section-label">Productos</p>
-            <h2>Una base de congelados para distintos momentos del menú.</h2>
-            <p>La selección se organiza alrededor de productos de salida frecuente: panificados para cafetería,
-              congelados de alta rotación y opciones especiales para ampliar la propuesta del local.</p>
+    <section class="brands-section reveal" aria-label="Marcas con las que trabajamos">
+      <div class="brands-header">
+        <p class="section-label">Proveedores</p>
+        <h2>Marcas con las que trabajamos</h2>
+        <p>Trabajamos con proveedores líderes del sector gastronómico.</p>
+      </div>
+      <div class="marquee-container">
+        <div class="marquee-track">
+          <!-- Primer grupo de logos -->
+          <div class="marquee-group">
+            <img src="assets/marcas/panificacion-lavilla.webp" alt="Panificación La Villa">
+            <img src="assets/marcas/cresfood.webp" alt="Cresfood">
+            <img src="assets/marcas/fragolato.webp" alt="Fragolato" class="brand-logo--downscale">
+            <img src="assets/marcas/pastelino.webp" alt="Pastelino">
+            <img src="assets/marcas/gicor.webp" alt="Gicor">
+            <img src="assets/marcas/lascamelias.webp" alt="Las Camelias" class="brand-logo--upscale">
+            <img src="assets/marcas/mccain.webp" alt="McCain">
+            <img src="assets/marcas/finca_balcarce_logo.webp" alt="Finca Balcarce" class="brand-logo--upscale">
+            <img src="assets/marcas/grangys.webp" alt="Grangy's">
+            <img src="assets/marcas/solimeno_logo.webp" alt="Solimeno">
+            <img src="assets/marcas/conosud.webp" alt="Conosud">
+            <img src="assets/marcas/quillen.webp" alt="Quillén" class="brand-logo--downscale">
+            <img src="assets/marcas/logo-mamanu.webp" alt="Mamamú" class="brand-logo--mamamu">
           </div>
-          <div class="products-visual reveal delay-1">
-            <img src="assets/producto-pizzas.webp" alt="Pizzas congeladas empaquetadas" width="600" height="420" loading="lazy">
+          <!-- Segundo grupo duplicado para loop infinito fluido -->
+          <div class="marquee-group" aria-hidden="true">
+            <img src="assets/marcas/panificacion-lavilla.webp" alt="Panificación La Villa">
+            <img src="assets/marcas/cresfood.webp" alt="Cresfood">
+            <img src="assets/marcas/fragolato.webp" alt="Fragolato" class="brand-logo--downscale">
+            <img src="assets/marcas/pastelino.webp" alt="Pastelino">
+            <img src="assets/marcas/gicor.webp" alt="Gicor">
+            <img src="assets/marcas/lascamelias.webp" alt="Las Camelias" class="brand-logo--upscale">
+            <img src="assets/marcas/mccain.webp" alt="McCain">
+            <img src="assets/marcas/finca_balcarce_logo.webp" alt="Finca Balcarce" class="brand-logo--upscale">
+            <img src="assets/marcas/grangys.webp" alt="Grangy's">
+            <img src="assets/marcas/solimeno_logo.webp" alt="Solimeno">
+            <img src="assets/marcas/conosud.webp" alt="Conosud">
+            <img src="assets/marcas/quillen.webp" alt="Quillén" class="brand-logo--downscale">
+            <img src="assets/marcas/logo-mamanu.webp" alt="Mamamú" class="brand-logo--mamamu">
           </div>
         </div>
-        <div class="category-rows stagger-list">
-          <article>
-            <span>01</span>
-            <h3>Panificados</h3>
-            <p>Medialunas, croissants, piezas listas para hornear y opciones para cafetería.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Alta rotación</h3>
-            <p>Papas, rebozados, hamburguesas y productos prácticos para servicio diario.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Especiales</h3>
-            <p>Promociones, opciones puntuales y alternativas aptas para necesidades específicas.</p>
-          </article>
+      </div>
+    </section>
+
+    <section class="catalog-transition reveal" id="productos">
+      <div class="section-inner transition-inner">
+        <p class="transition-lead">
+          Más de 100 productos congelados para gastronomía, distribuidos en panificación, helados, pizzas, carnes, papas, productos de mar y opciones Sin TACC.
+        </p>
+        <div class="transition-actions">
+          <a class="button button-secondary cta-catalog" href="#pedido">Explorar catálogo completo</a>
         </div>
       </div>
     </section>
@@ -160,11 +177,19 @@
 
         <div class="order-workspace reveal delay-1">
           <div class="catalog-panel">
-            <div class="catalog-toolbar" role="tablist" aria-label="Filtrar productos">
-              <button class="filter-button active" type="button" data-filter="Todos">Todos</button>
-              <button class="filter-button" type="button" data-filter="Panificados">Panificados</button>
-              <button class="filter-button" type="button" data-filter="Alta rotación">Alta rotación</button>
-              <button class="filter-button" type="button" data-filter="Especiales">Especiales</button>
+            <div class="catalog-toolbar" role="tablist" aria-label="Filtrar por marca">
+              <button class="filter-button active" type="button" data-filter="La Villa" role="tab" aria-selected="true">La Villa</button>
+              <button class="filter-button" type="button" data-filter="Pastelino" role="tab" aria-selected="false">Pastelino</button>
+              <button class="filter-button" type="button" data-filter="Cresfood" role="tab" aria-selected="false">Cresfood (Sin TACC)</button>
+              <button class="filter-button" type="button" data-filter="Fragolato" role="tab" aria-selected="false">Fragolato</button>
+              <button class="filter-button" type="button" data-filter="Mamanú" role="tab" aria-selected="false">Mamanú</button>
+              <button class="filter-button" type="button" data-filter="Gicor" role="tab" aria-selected="false">Gicor</button>
+              <button class="filter-button" type="button" data-filter="Las Camelias" role="tab" aria-selected="false">Las Camelias</button>
+              <button class="filter-button" type="button" data-filter="McCain / Finca Balcarce" role="tab" aria-selected="false">McCain / Finca Balcarce</button>
+              <button class="filter-button" type="button" data-filter="Grangy's" role="tab" aria-selected="false">Grangy's</button>
+              <button class="filter-button" type="button" data-filter="Solimeno" role="tab" aria-selected="false">Solimeno</button>
+              <button class="filter-button" type="button" data-filter="Conosud" role="tab" aria-selected="false">Conosud</button>
+              <button class="filter-button" type="button" data-filter="Quillén" role="tab" aria-selected="false">Quillén</button>
             </div>
             <div class="product-picker" id="productPicker" aria-live="polite"></div>
           </div>
@@ -180,15 +205,15 @@
             <div class="client-fields">
               <label>
                 Nombre del negocio
-                <input id="businessName" type="text" placeholder="Ej: Bar Roma">
+                <input id="businessName" type="text" maxlength="60" placeholder="Ej: Bar Roma">
               </label>
               <label>
                 Zona o dirección
-                <input id="deliveryZone" type="text" placeholder="Ej: Nueva Córdoba">
+                <input id="deliveryZone" type="text" maxlength="120" placeholder="Ej: Nueva Córdoba">
               </label>
               <label>
                 Comentarios
-                <textarea id="orderNotes" rows="3" placeholder="Horarios, marcas, cantidades especiales..."></textarea>
+                <textarea id="orderNotes" rows="3" maxlength="300" placeholder="Horarios, marcas, cantidades especiales..."></textarea>
               </label>
             </div>
             <div class="summary-actions">
@@ -202,9 +227,9 @@
     </section>
 
     <section class="gallery-strip reveal" aria-label="Imágenes de Pasquta Congelados">
-      <img src="assets/producto-bocados.webp" alt="Bocados congelados servidos en un bowl" width="600" height="400" loading="lazy">
-      <img src="assets/producto-postre.webp" alt="Postre congelado presentado en porción" width="600" height="400" loading="lazy">
-      <img src="assets/producto-medialunas.webp" alt="Medialunas en plato listas para servir" width="600" height="400" loading="lazy">
+      <img src="assets/fotos-reales/producto-bocados.webp" alt="Bocados congelados servidos en un bowl" width="600" height="400" loading="lazy">
+      <img src="assets/fotos-reales/producto-postre.webp" alt="Postre congelado presentado en porción" width="600" height="400" loading="lazy">
+      <img src="assets/fotos-reales/producto-medialunas.webp" alt="Medialunas en plato listas para servir" width="600" height="400" loading="lazy">
     </section>
 
     <section class="service-section reveal">
@@ -237,11 +262,11 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <a class="brand" href="#inicio" aria-label="Pasquta Congelados">
-          <img class="brand-logo" src="assets/pasquta-logo.webp" alt="" aria-hidden="true" width="48" height="48" loading="lazy">
-          <div class="brand-text">
-            <span class="brand-script">Pasquta</span>
-            <span class="brand-line">Congelados</span>
-          </div>
+          <img class="brand-mark-header" src="assets/branding-pasquta/pasquta-logo.webp" alt="" aria-hidden="true" width="48" height="48" loading="lazy">
+          <span class="brand-logo-header" aria-hidden="true">
+            <img class="brand-logo-header-img brand-logo-header-blue" src="assets/branding-pasquta/pasquta-logo-horizontal-blue.svg" alt="" width="348" height="28" loading="lazy">
+            <img class="brand-logo-header-img brand-logo-header-orange" src="assets/branding-pasquta/pasquta-logo-horizontal-orange.svg" alt="" width="348" height="28" loading="lazy">
+          </span>
         </a>
         <p>Acompañamos a bares, cafeterías y rotiserías con stock, variedad y entregas coordinadas.</p>
       </div>
@@ -256,7 +281,7 @@
       <div class="footer-social">
         <strong>Redes y Contacto</strong>
         <span class="footer-location">Córdoba, Argentina</span>
-        <a href="https://wa.me/5493513187487" target="_blank" rel="noreferrer" class="footer-link-text">
+        <a href="https://api.whatsapp.com/send?phone=5493513187487" data-whatsapp-link target="_blank" rel="noreferrer" class="footer-link-text">
           +54 9 351 318-7487
         </a>
         <div class="social-icons">
@@ -288,3 +313,7 @@
 </body>
 
 </html>
+
+
+
+
