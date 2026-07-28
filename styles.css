@@ -865,6 +865,8 @@ a:focus-visible {
 .marquee-group img {
   height: 80px;
   width: auto;
+  max-width: none;
+  flex-shrink: 0;
   object-fit: contain;
   filter: none;
   mix-blend-mode: normal;
