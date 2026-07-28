@@ -846,6 +846,7 @@ a:focus-visible {
 .marquee-track {
   display: flex;
   width: max-content;
+  flex-shrink: 0;
   animation: marquee-infinite 35s linear infinite;
   will-change: transform;
 }
@@ -858,6 +859,7 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  flex-shrink: 0;
   gap: 80px;
   padding: 0 40px;
 }
@@ -895,6 +897,72 @@ a:focus-visible {
   }
   100% {
     transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Optimización del carrusel en mobile:
+   - Logos más chicos para que entren varios y no se amontonen.
+   - La máscara (mask-image) sobre una capa animada provoca repintados por
+     fotograma en iOS Safari => se reemplaza por overlays estáticos. */
+@media (max-width: 640px) {
+  .brands-section {
+    padding: 56px 0 36px;
+  }
+
+  .brands-header {
+    margin-bottom: 28px;
+  }
+
+  .marquee-container {
+    padding: 10px 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .marquee-container::before,
+  .marquee-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 44px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .marquee-container::before {
+    left: 0;
+    background: linear-gradient(to right, var(--paper), rgba(243, 241, 238, 0));
+  }
+
+  .marquee-container::after {
+    right: 0;
+    background: linear-gradient(to left, var(--paper), rgba(243, 241, 238, 0));
+  }
+
+  .marquee-group {
+    gap: 44px;
+    padding: 0 22px;
+  }
+
+  .marquee-group img {
+    height: 44px;
+  }
+
+  .marquee-group img.brand-logo--upscale {
+    height: 58px;
+  }
+
+  .marquee-group img.brand-logo--downscale {
+    height: 32px;
+  }
+
+  .marquee-group img.brand-logo--mamamu {
+    height: 26px;
+  }
+
+  .marquee-track {
+    animation-duration: 26s;
   }
 }
 
