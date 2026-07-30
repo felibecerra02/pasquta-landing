@@ -112,14 +112,21 @@ video {
   max-width: 100%;
 }
 
-h1,
-h2,
-h3,
 p,
 a,
 strong,
-span {
+span,
+li {
   overflow-wrap: break-word;
+}
+
+/* Los títulos no deben partirse a mitad de palabra: solo quiebran si es
+   estrictamente inevitable (palabra más ancha que el contenedor). */
+h1,
+h2,
+h3 {
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .whatsapp-widget {
@@ -479,7 +486,7 @@ textarea {
   min-height: calc(100vh - var(--header-height));
   overflow: hidden;
   isolation: isolate;
-  background-image: url("assets/branding-pasquta/galpon-2.png");
+  background-image: url("assets/branding-pasquta/galpon-2.webp");
   background-position: center 62%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -512,6 +519,15 @@ textarea {
   padding-left: max(24px, calc((100vw - 1180px) / 2));
 }
 
+/* El caso base usa 100vh; donde haya soporte, usar svh para descontar
+   la UI dinámica del navegador móvil (los @media ya lo hacen aparte). */
+@supports (height: 100svh) {
+  .hero-section,
+  .hero-inner {
+    min-height: calc(100svh - var(--header-height));
+  }
+}
+
 .hero-copy {
   width: 100%;
   max-width: 620px;
@@ -538,7 +554,7 @@ p {
 }
 
 h1 {
-  max-width: 11ch;
+  max-width: 15ch;
   margin-bottom: 24px;
   color: var(--blue-dark);
   font-family: var(--font-title);
@@ -1492,6 +1508,7 @@ textarea:focus {
 
 .contact-content p {
   color: rgba(255, 255, 255, 0.72);
+  margin-top: 14px;
   margin-bottom: 28px;
 }
 
@@ -1810,8 +1827,9 @@ textarea:focus {
 
   h1 {
     max-width: 100%;
-    font-size: clamp(2rem, 9.5vw, 3.2rem);
+    font-size: clamp(1.9rem, 8.2vw, 2.6rem);
     line-height: 1.05;
+    letter-spacing: -0.015em;
   }
 
   h2 {
@@ -1826,11 +1844,54 @@ textarea:focus {
   }
 
   .hero-section {
-    background-position: center 68%;
+    background-image: url("assets/branding-pasquta/galpon-2-mobile.webp");
+    background-position: center 55%;
+  }
+
+  /* Crop vertical: los camiones quedan en el tercio inferior.
+     Opaco arriba (zona del texto), se abre en el tercio inferior para
+     mostrar la foto y vuelve a cerrar un poco al final para dar
+     contraste al FAB de WhatsApp. */
+  .hero-section::before {
+    background: linear-gradient(
+      180deg,
+      rgba(44, 86, 151, 0.94) 0%,
+      rgba(44, 86, 151, 0.88) 42%,
+      rgba(44, 86, 151, 0.34) 74%,
+      rgba(44, 86, 151, 0.62) 100%
+    );
   }
 
   .hero-inner {
-    padding: 44px 24px 108px;
+    padding: 44px 24px 88px;
+  }
+
+  /* Jerarquía de espacios progresiva: eyebrow < h1 < acciones */
+  .hero-copy .eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .hero-copy h1 {
+    margin-bottom: 25px;
+  }
+
+  .hero-copy p:not(.eyebrow) {
+    line-height: 1.5;
+  }
+
+  .hero-actions {
+    max-width: 340px;
+    margin-top: 30px;
+  }
+
+  .hero-actions .button {
+    flex: 1 1 0;
+    white-space: nowrap;
+  }
+
+  .button {
+    min-height: 44px;
+    padding: 0 16px;
   }
 
   .cart-item {
