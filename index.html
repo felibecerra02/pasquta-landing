@@ -14,9 +14,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/branding-pasquta/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/branding-pasquta/apple-touch-icon.png">
   <link rel="manifest" href="assets/site.webmanifest">
-  <!-- Preload del hero según breakpoint: el navegador descarga solo la imagen que aplica -->
-  <link rel="preload" as="image" href="assets/branding-pasquta/galpon-2.webp" media="(min-width: 641px)">
-  <link rel="preload" as="image" href="assets/branding-pasquta/galpon-2-mobile.webp" media="(max-width: 640px)">
+  <!-- Preload del hero (imagen LCP) -->
+  <link rel="preload" as="image" href="assets/branding-pasquta/galpon-2.webp">
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -64,8 +63,7 @@
           <p class="eyebrow">Soluciones en productos congelados</p>
           <h1>Abastecimiento simple para negocios gastronómicos.</h1>
           <p>
-            Distribuimos congelados para que bares, cafeterías, rotiserías y cocinas
-            puedan resolver stock, variedad y entregas con un proveedor cercano.
+            Congelados para bares, cafeterías y rotiserías, con entrega coordinada.
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#pedido">Armar pedido</a>
@@ -74,6 +72,7 @@
           </div>
         </div>
       </div>
+      <div class="hero-scroll" aria-hidden="true"></div>
     </section>
 
     <section class="proof-strip reveal" aria-label="Diferenciales de Pasquta">
@@ -159,7 +158,7 @@
     <section class="catalog-transition reveal" id="productos">
       <div class="section-inner transition-inner">
         <p class="transition-lead">
-          Más de 100 productos congelados para gastronomía, distribuidos en panificación, helados, pizzas, carnes, papas, productos de mar y opciones Sin TACC.
+          Más de 100 productos congelados para gastronomía, distribuidos en panificación, helados, pizzas, carnes, papas, productos de mar y opciones Sin GLUTEN.
         </p>
         <div class="transition-actions">
           <a class="button button-secondary cta-catalog" href="#pedido">Explorar catálogo completo</a>
@@ -180,10 +179,15 @@
 
         <div class="order-workspace reveal delay-1">
           <div class="catalog-panel">
+            <div class="brand-select-wrap">
+              <label for="brandSelect">Filtrar por marca</label>
+              <!-- Opciones generadas en script.js a partir de los .filter-button -->
+              <select class="brand-select" id="brandSelect"></select>
+            </div>
             <div class="catalog-toolbar" role="tablist" aria-label="Filtrar por marca">
               <button class="filter-button active" type="button" data-filter="La Villa" role="tab" aria-selected="true">La Villa</button>
               <button class="filter-button" type="button" data-filter="Pastelino" role="tab" aria-selected="false">Pastelino</button>
-              <button class="filter-button" type="button" data-filter="Cresfood" role="tab" aria-selected="false">Cresfood (Sin TACC)</button>
+              <button class="filter-button" type="button" data-filter="Cresfood" role="tab" aria-selected="false">Cresfood (Sin GLUTEN)</button>
               <button class="filter-button" type="button" data-filter="Fragolato" role="tab" aria-selected="false">Fragolato</button>
               <button class="filter-button" type="button" data-filter="Mamanú" role="tab" aria-selected="false">Mamanú</button>
               <button class="filter-button" type="button" data-filter="Gicor" role="tab" aria-selected="false">Gicor</button>

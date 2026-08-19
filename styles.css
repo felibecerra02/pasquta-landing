@@ -57,6 +57,7 @@
   --ink: #14212b;
   --muted: #65717a;
   --line: rgba(44, 86, 151, 0.14);
+  --danger: #c0392b;
   --font-title: "Filson Pro", Arial, sans-serif;
   --font-text: "Helvetica Neue Pasquta", "Helvetica Neue", Arial, sans-serif;
   --header-height: 112px;
@@ -87,7 +88,6 @@ html,
 body {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 body {
@@ -602,6 +602,11 @@ h3 {
   color: #fff;
 }
 
+/* Indicador de scroll: oculto por defecto (desktop), se muestra solo en mobile */
+.hero-scroll {
+  display: none;
+}
+
 .hero-actions,
 .contact-actions,
 .summary-actions {
@@ -1015,6 +1020,10 @@ a:focus-visible {
   margin-bottom: 44px;
 }
 
+.order-heading h2 {
+  margin-bottom: 24px;
+}
+
 .order-heading p {
   color: rgba(255, 255, 255, 0.72);
 }
@@ -1024,6 +1033,12 @@ a:focus-visible {
   grid-template-columns: minmax(0, 1fr) minmax(360px, 0.46fr);
   gap: 34px;
   align-items: start;
+}
+
+/* Selector de marca: solo mobile (<=640px). En desktop y tablet manda
+   .catalog-toolbar, que ahi tiene ancho para la fila de botones. */
+.brand-select-wrap {
+  display: none;
 }
 
 .catalog-toolbar {
@@ -1270,6 +1285,74 @@ a:focus-visible {
     min-height: auto;
     padding: 20px;
   }
+
+  /* La fila deslizable de 12 marcas se reemplaza por un select nativo.
+     display:none saca la toolbar del arbol de accesibilidad, para que el
+     role="tablist" no anuncie el mismo estado que el select. */
+  .catalog-toolbar {
+    display: none;
+  }
+
+  .brand-select-wrap {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .brand-select-wrap label {
+    font-family: var(--font-title);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* Mismo patron visual que .variant-select: el color de fondo va antes que
+     background-image para que el shorthand no pise el chevron. */
+  .brand-select {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 38px 0 14px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 200ms ease, background-color 200ms ease;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 14px) center;
+  }
+
+  .brand-select:focus {
+    border-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .brand-select option {
+    background: #2c5697;
+    color: #ffffff;
+  }
+
+  /* Azul muerto entre el encabezado y los filtros: 44+44 -> 22+22 */
+  .order-inner {
+    gap: 22px;
+  }
+
+  .order-heading {
+    margin-bottom: 22px;
+  }
+
+  .order-heading h2 {
+    margin-bottom: 18px;
+  }
 }
 
 .add-button:hover,
@@ -1282,9 +1365,12 @@ a:focus-visible {
   transform: translateY(-2px);
 }
 
+/* Acompana el scroll dentro de .order-workspace: se detiene solo cuando
+   termina la grilla de productos. Sin alto maximo: la tarjeta nunca scrollea
+   por dentro. */
 .order-summary {
   position: sticky;
-  top: 102px;
+  top: calc(var(--header-height) + 16px);
   padding: 26px;
   color: var(--ink);
   background: var(--cream);
@@ -1320,7 +1406,7 @@ a:focus-visible {
 
 .cart-items {
   display: grid;
-  gap: 14px;
+  gap: 0;
   min-height: 90px;
   padding: 20px 0;
   border-bottom: 1px solid var(--line);
@@ -1335,7 +1421,25 @@ a:focus-visible {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 14px;
+  align-items: start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
   animation: softScale 260ms var(--ease);
+}
+
+.cart-item:first-child {
+  padding-top: 0;
+}
+
+.cart-item:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.cart-item-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .cart-item strong {
@@ -1344,46 +1448,88 @@ a:focus-visible {
   line-height: 1.25;
 }
 
-.cart-item span {
+.cart-item-brand {
+  display: block;
   color: var(--muted);
   font-size: 0.9rem;
 }
 
+/* Control segmentado: una sola pieza en vez de dos circulos sueltos */
 .quantity-controls {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 8px;
+  margin-top: 10px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
 }
 
-.quantity-button,
+.quantity-button {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 42px;
+  border-radius: 0;
+  color: var(--blue-dark);
+  background: transparent;
+  font-size: 1.05rem;
+  line-height: 1;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.quantity-button:hover:not(:disabled) {
+  background: rgba(44, 86, 151, 0.08);
+}
+
+.quantity-button:disabled {
+  color: var(--muted);
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* min-width fijo: la fila no cambia de ancho al pasar de 9 a 10 */
+.quantity-value {
+  min-width: 34px;
+  text-align: center;
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+
+/* Accion destructiva: discreta en reposo, roja al interactuar. Nunca naranja
+   (ese es el color de confirmar). El margen negativo evita que el area
+   tactil de 44px desalinee la fila. */
 .remove-button {
   display: inline-grid;
   place-items: center;
-  min-width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  color: var(--blue-dark);
-  background: rgba(44, 86, 151, 0.1);
-  transition: transform 180ms var(--ease), background-color 180ms ease, color 180ms ease;
-}
-
-.quantity-button:hover {
-  color: #fff;
-  background: var(--blue);
-  transform: translateY(-1px);
-}
-
-.remove-button {
   align-self: start;
-  min-width: 34px;
-  color: #fff;
-  background: var(--orange);
+  width: 44px;
+  height: 44px;
+  margin: -11px -11px 0 0;
+  border-radius: 999px;
+  color: var(--ink);
+  background: transparent;
+  transition: color 180ms ease, background-color 180ms ease;
 }
 
-.remove-button:hover {
-  background: var(--orange-dark);
-  transform: rotate(6deg) scale(1.04);
+/* --muted sobre el crema da 4.4:1; --ink atenuado deja el mismo gris tenue
+   pero por encima del minimo de 4.5:1 */
+.remove-button svg {
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+  transition: opacity 180ms ease;
+}
+
+.remove-button:hover,
+.remove-button:focus-visible {
+  color: var(--danger);
+  background: rgba(192, 57, 43, 0.09);
+}
+
+.remove-button:hover svg,
+.remove-button:focus-visible svg {
+  opacity: 1;
 }
 
 .client-fields {
@@ -1630,6 +1776,11 @@ textarea:focus {
     opacity: 1;
     transform: none;
   }
+
+  /* El indicador de scroll queda visible pero sin rebote */
+  .hero-scroll {
+    animation: none;
+  }
 }
 
 @media (min-width: 981px) {
@@ -1645,6 +1796,13 @@ textarea:focus {
 @media (max-width: 980px) {
   :root {
     --header-height: 88px;
+  }
+
+  /* Solo aca: el carrito ya no es sticky, asi que ocultar el desborde
+     horizontal no rompe nada y sigue evitando el zoom lateral en mobile. */
+  html,
+  body {
+    overflow-x: hidden;
   }
 
   .nav {
@@ -1827,9 +1985,8 @@ textarea:focus {
 
   h1 {
     max-width: 100%;
-    font-size: clamp(1.9rem, 8.2vw, 2.6rem);
+    font-size: clamp(2rem, 9.5vw, 3.2rem);
     line-height: 1.05;
-    letter-spacing: -0.015em;
   }
 
   h2 {
@@ -1844,58 +2001,45 @@ textarea:focus {
   }
 
   .hero-section {
-    background-image: url("assets/branding-pasquta/galpon-2-mobile.webp");
-    background-position: center 55%;
-  }
-
-  /* Crop vertical: los camiones quedan en el tercio inferior.
-     Opaco arriba (zona del texto), se abre en el tercio inferior para
-     mostrar la foto y vuelve a cerrar un poco al final para dar
-     contraste al FAB de WhatsApp. */
-  .hero-section::before {
-    background: linear-gradient(
-      180deg,
-      rgba(44, 86, 151, 0.94) 0%,
-      rgba(44, 86, 151, 0.88) 42%,
-      rgba(44, 86, 151, 0.34) 74%,
-      rgba(44, 86, 151, 0.62) 100%
-    );
+    background-position: center 68%;
   }
 
   .hero-inner {
-    padding: 44px 24px 88px;
+    padding: 44px 24px 108px;
   }
 
-  /* Jerarquía de espacios progresiva: eyebrow < h1 < acciones */
-  .hero-copy .eyebrow {
-    margin-bottom: 10px;
+  /* Indicador de scroll: chevron discreto centrado al pie del hero */
+  .hero-scroll {
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    margin-left: -9px;
+    width: 18px;
+    height: 18px;
+    z-index: 1;
+    pointer-events: none;
+    animation: heroScrollBounce 1.8s ease-in-out infinite;
   }
 
-  .hero-copy h1 {
-    margin-bottom: 25px;
+  .hero-scroll::before {
+    content: "";
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 0 auto;
+    border-right: 2px solid rgba(255, 255, 255, 0.55);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+    transform: rotate(45deg);
   }
 
-  .hero-copy p:not(.eyebrow) {
-    line-height: 1.5;
-  }
-
-  .hero-actions {
-    max-width: 340px;
-    margin-top: 30px;
-  }
-
-  .hero-actions .button {
-    flex: 1 1 0;
-    white-space: nowrap;
-  }
-
-  .button {
-    min-height: 44px;
-    padding: 0 16px;
-  }
-
-  .cart-item {
-    grid-template-columns: 1fr;
+  @keyframes heroScrollBounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(6px);
+    }
   }
 
   .gallery-strip {

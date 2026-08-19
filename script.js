@@ -41,18 +41,18 @@ const products = [
   { id: "pan-campo-pastelino", brand: "Pastelino", name: "Pan de Campo", presentation: "12 unidades - 350 gr", variants: [] },
   { id: "pan-rustico-multicereal-pastelino", brand: "Pastelino", name: "Pan Rústico Multicereal", presentation: "12 unidades - 350 gr", variants: [] },
 
-  // CRESFOOD (SIN TACC)
-  { id: "medialuna-cresfood", brand: "Cresfood", name: "Medialuna Sin TACC", presentation: "Según variante", variants: ["Apta microondas x2 unidades", "Cruda congelada x12 unidades"] },
-  { id: "postres-cresfood", brand: "Cresfood", name: "Postres Sin TACC", presentation: "Por unidad", variants: ["Chocotorta", "Cheescake", "Tiramisú", "Marquise"] },
-  { id: "criollo-cresfood", brand: "Cresfood", name: "Criollo Sin TACC", presentation: "Según variante", variants: ["Microondas x3", "Congelado x12", "Congelado x30"] },
-  { id: "pan-baguette-cresfood", brand: "Cresfood", name: "Pan Baguette Sin TACC", presentation: "Según variante", variants: ["Precocido x2", "Jamón y queso"] },
-  { id: "criollo-azucarado-cresfood", brand: "Cresfood", name: "Criollo Azucarado Sin TACC", presentation: "12 unidades", variants: [] },
-  { id: "pastas-cresfood", brand: "Cresfood", name: "Pastas Sin TACC", presentation: "Por unidad", variants: ["Canelones", "Lasagna"] },
-  { id: "palmeritas-cresfood", brand: "Cresfood", name: "Palmeritas Sin TACC", presentation: "12 unidades", variants: [] },
-  { id: "chipa-cresfood", brand: "Cresfood", name: "Chipa Sin TACC", presentation: "Según variante", variants: ["40 unidades (1 kg)", "10 unidades (1/4 kg)"] },
-  { id: "tartas-cresfood", brand: "Cresfood", name: "Tartas Sin TACC", presentation: "Por unidad", variants: ["Jamón y queso", "Choclo y crema", "Calabaza", "Espinaca y morrones"] },
-  { id: "pan-hamburguesa-cresfood", brand: "Cresfood", name: "Pan de Hamburguesa Sin TACC", presentation: "Por unidad", variants: [] },
-  { id: "pizzetas-cresfood", brand: "Cresfood", name: "Pizzetas Sin TACC", presentation: "Según variante", variants: ["Muzza", "Muzza y jamón", "4 quesos", "Napolitana"] },
+  // CRESFOOD (SIN GLUTEN)
+  { id: "medialuna-cresfood", brand: "Cresfood", name: "Medialuna Sin GLUTEN", presentation: "Según variante", variants: ["Apta microondas x2 unidades", "Cruda congelada x12 unidades"] },
+  { id: "postres-cresfood", brand: "Cresfood", name: "Postres Sin GLUTEN", presentation: "Por unidad", variants: ["Chocotorta", "Cheescake", "Tiramisú", "Marquise"] },
+  { id: "criollo-cresfood", brand: "Cresfood", name: "Criollo Sin GLUTEN", presentation: "Según variante", variants: ["Microondas x3", "Congelado x12", "Congelado x30"] },
+  { id: "pan-baguette-cresfood", brand: "Cresfood", name: "Pan Baguette Sin GLUTEN", presentation: "Según variante", variants: ["Precocido x2", "Jamón y queso"] },
+  { id: "criollo-azucarado-cresfood", brand: "Cresfood", name: "Criollo Azucarado Sin GLUTEN", presentation: "12 unidades", variants: [] },
+  { id: "pastas-cresfood", brand: "Cresfood", name: "Pastas Sin GLUTEN", presentation: "Por unidad", variants: ["Canelones", "Lasagna"] },
+  { id: "palmeritas-cresfood", brand: "Cresfood", name: "Palmeritas Sin GLUTEN", presentation: "12 unidades", variants: [] },
+  { id: "chipa-cresfood", brand: "Cresfood", name: "Chipa Sin GLUTEN", presentation: "Según variante", variants: ["40 unidades (1 kg)", "10 unidades (1/4 kg)"] },
+  { id: "tartas-cresfood", brand: "Cresfood", name: "Tartas Sin GLUTEN", presentation: "Por unidad", variants: ["Jamón y queso", "Choclo y crema", "Calabaza", "Espinaca y morrones"] },
+  { id: "pan-hamburguesa-cresfood", brand: "Cresfood", name: "Pan de Hamburguesa Sin GLUTEN", presentation: "Por unidad", variants: [] },
+  { id: "pizzetas-cresfood", brand: "Cresfood", name: "Pizzetas Sin GLUTEN", presentation: "Según variante", variants: ["Muzza", "Muzza y jamón", "4 quesos", "Napolitana"] },
 
   // FRAGOLATO
   { id: "palitos-cremita-fragolato", brand: "Fragolato", name: "Palitos Cremita", presentation: "30 unidades", variants: ["Americana", "Frutilla"] },
@@ -150,6 +150,7 @@ const businessName = document.getElementById("businessName");
 const deliveryZone = document.getElementById("deliveryZone");
 const orderNotes = document.getElementById("orderNotes");
 const filterButtons = document.querySelectorAll(".filter-button");
+const brandSelect = document.getElementById("brandSelect");
 const siteHeader = document.querySelector(".site-header");
 const orderSummary = document.querySelector(".order-summary");
 const menuToggle = document.getElementById("menuToggle");
@@ -205,7 +206,7 @@ function renderProducts() {
     const isInCart = cart.some((item) => item.id === cartItemId);
     
     const isSinTacc = product.brand === "Cresfood";
-    const badgeHtml = isSinTacc ? `<img src="assets/marcas/sintacclogo.webp" alt="Sin TACC" class="card-badge-sintacc" loading="lazy">` : "";
+    const badgeHtml = isSinTacc ? `<img src="assets/marcas/sin_gluten.webp" alt="Sin GLUTEN" class="card-badge-sintacc" loading="lazy">` : "";
 
     return `
       <article class="product-card" data-product-id="${product.id}">
@@ -318,18 +319,31 @@ function renderCart() {
 
   cartItems.innerHTML = cart.map((item) => {
     const variantLabel = item.selectedVariant ? ` - ${item.selectedVariant}` : "";
+    // Restar desde 1 no elimina el item: para eso esta el tacho
+    const atMinimum = item.quantity <= 1;
     return `
       <article class="cart-item">
-        <div>
+        <div class="cart-item-body">
           <strong>${item.name}</strong>
-          <span>${item.brand}${variantLabel}</span>
+          <span class="cart-item-brand">${item.brand}${variantLabel}</span>
           <div class="quantity-controls">
-            <button class="quantity-button" type="button" data-quantity="${item.id}" data-amount="-1">-</button>
-            <span>${item.quantity}</span>
-            <button class="quantity-button" type="button" data-quantity="${item.id}" data-amount="1">+</button>
+            <button class="quantity-button" type="button" data-quantity="${item.id}" data-amount="-1"
+              aria-label="Restar una unidad de ${item.name}"${atMinimum ? " disabled" : ""}>&minus;</button>
+            <span class="quantity-value">${item.quantity}</span>
+            <button class="quantity-button" type="button" data-quantity="${item.id}" data-amount="1"
+              aria-label="Sumar una unidad de ${item.name}">+</button>
           </div>
         </div>
-        <button class="remove-button" type="button" data-remove="${item.id}" aria-label="Quitar ${item.name}">x</button>
+        <button class="remove-button" type="button" data-remove="${item.id}" aria-label="Quitar ${item.name} del pedido">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 6h18"></path>
+            <path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"></path>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+            <line x1="10" y1="11" x2="10" y2="17"></line>
+            <line x1="14" y1="11" x2="14" y2="17"></line>
+          </svg>
+        </button>
       </article>
     `;
   }).join("");
@@ -404,18 +418,50 @@ function buildWhatsAppUrl(message = "") {
   return `${baseUrl}?phone=${phoneNumber}${textParam}`;
 }
 
+// Unica fuente de verdad del filtrado: la usan los botones y el select mobile
+function applyBrandFilter(brand) {
+  activeFilter = brand;
+
+  filterButtons.forEach((item) => {
+    const isActive = item.dataset.filter === brand;
+    item.classList.toggle("active", isActive);
+    item.setAttribute("aria-selected", isActive ? "true" : "false");
+  });
+
+  if (brandSelect && brandSelect.value !== brand) {
+    brandSelect.value = brand;
+  }
+
+  renderProducts();
+}
+
+// El select mobile se arma leyendo los .filter-button: una sola lista de marcas
+function buildBrandSelect() {
+  if (!brandSelect) return;
+
+  brandSelect.replaceChildren(...Array.from(filterButtons).map((button) => {
+    const option = document.createElement("option");
+    option.value = button.dataset.filter;
+    option.textContent = button.textContent.trim();
+    return option;
+  }));
+
+  const activeButton = document.querySelector(".filter-button.active");
+  brandSelect.value = activeButton ? activeButton.dataset.filter : activeFilter;
+}
+
 // Brand filter click bindings
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    activeFilter = button.dataset.filter;
-    filterButtons.forEach((item) => {
-      const isActive = item === button;
-      item.classList.toggle("active", isActive);
-      item.setAttribute("aria-selected", isActive ? "true" : "false");
-    });
-    renderProducts();
+    applyBrandFilter(button.dataset.filter);
   });
 });
+
+if (brandSelect) {
+  brandSelect.addEventListener("change", () => {
+    applyBrandFilter(brandSelect.value);
+  });
+}
 
 // Selector change micro-interaction to update button state dynamically
 productPicker.addEventListener("change", (event) => {
@@ -475,5 +521,6 @@ whatsappLinks.forEach((link) => {
   link.href = buildWhatsAppUrl(link.dataset.whatsappMessage || "");
 });
 
+buildBrandSelect();
 renderProducts();
 renderCart();
